@@ -1,2 +1,3 @@
 node_modules
 data/questions.json
+public/main.build.js
