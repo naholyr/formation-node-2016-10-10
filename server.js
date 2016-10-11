@@ -4,11 +4,15 @@ const http = require('http')
 const express = require('express')
 const chalk = require('chalk')
 const config = require('config')
-const questions = require('./lib/routes/questions')
 const bodyParser = require('body-parser')
 
+// Initialize services
 const app = express()
+const server = http.createServer(app)
+// TODO WEBSOCKET initialize socket.io
 
+
+// Export app
 module.exports = app
 
 // Disable X-Powered-By header
@@ -57,11 +61,10 @@ app.get('/query', (req, res) => {
   res.send({ variable: req.query.variable })
 })
 
-app.get('/next-question', questions.next)
-app.post('/answer-question', questions.answer)
+// Replaced by WS API
+// app.get('/next-question', questions.next)
+// app.post('/answer-question', questions.answer)
 
-
-const server = http.createServer(app)
 
 if (!module.parent) {
   server.listen(config.server.port, () => {

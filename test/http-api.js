@@ -5,7 +5,7 @@ const request = require('supertest')
 const app = require('../server')
 
 
-describe('HTTP API', () => {
+describe.skip('HTTP API', () => {
 
   it('should grab next question', (done) => {
     request(app)
