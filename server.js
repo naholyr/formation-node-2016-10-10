@@ -26,6 +26,8 @@ app.set('x-powered-by', false)
 */
 app.use(bodyParser.json())
 
+app.use(express.static('public'))
+
 /*
 function restricted (role) {
   return function (req, res, next) {
