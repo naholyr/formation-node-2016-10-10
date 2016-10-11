@@ -2,13 +2,25 @@
 
 * [Copycast](http://192.168.230.219:42000/)
 * [nvm](https://github.com/creationix/nvm)
+* Commandes utiles npm :
+  * `init` → créer le package.json
+  * `install` → installer les dépendances prod + dev
+    * `install --production` → uniquement les dépendances prod
+    * `install $NOM_MODULE` → installer un module
+    * `install --save $NOM_MODULE` → installer un module et le stocker en dépendance de prod
+    * `install --save-dev $NOM_MODULE` → installer un module et le stocker en dépendance de dév
+    * `install --save-optional $NOM_MODULE` → installer une dépendance de prod optionnelle
+  * `run` → lister les scripts
+  * `home $NOM_MODULE` → ouvrir un browser sur la homepage d'un module
+  * `shrinkwrap` → figer l'arborescence du node_modules avec npm-shrinkwrap.json (**ATTENTION** package.json est ignoré si ce fichier existe)
 
 ## Backend
 
-* Dépendances: `request cheerio lodash request-promise-native`
+* Dépendances : `npm install`
+* Générer DB : `node bin/build-quizz-database`
 
 ## Frontend
 
-* Dépendances: `babel-preset-react babel-preset-es2015 react react-dom babelify browserify eslint-plugin-react uglifyify watchify classnames`
-* Build: `browserify -t babelify client/index.js -g uglifyify > public/main.build.js`
-* Watch: `watchify -v -d -t babelify client/index.js -o public/main.build.js`
+* Dépendances : `npm install`
+* Build : `browserify -t babelify client/index.js -g uglifyify > public/main.build.js`
+* Watch : `watchify -v -d -t babelify client/index.js -o public/main.build.js`
