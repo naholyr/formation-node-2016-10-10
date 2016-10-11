@@ -13,6 +13,11 @@
   * `run` → lister les scripts
   * `home $NOM_MODULE` → ouvrir un browser sur la homepage d'un module
   * `shrinkwrap` → figer l'arborescence du node_modules avec npm-shrinkwrap.json (**ATTENTION** package.json est ignoré si ce fichier existe)
+* `config` :
+  * `default.ext` → git
+  * `$NODE_ENV.ext` → git
+  * `local.ext` → ignoré
+
 
 ## Backend
 
