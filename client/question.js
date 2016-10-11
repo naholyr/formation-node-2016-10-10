@@ -12,6 +12,13 @@ export default class Question extends React.Component {
     }
   }
 
+  componentWillReceiveProps (props) {
+    if (props.title !== this.props.title) {
+      // Question changed: cancel selection
+      this.setState({ selected: null })
+    }
+  }
+
   renderChoices () {
     return this.props.choices.map((label, index) => (
       <Choice

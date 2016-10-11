@@ -7,70 +7,70 @@ export default class App extends React.Component {
     super(props)
 
     this.state = {
-      loading: props.loading,
-      disabled: false,
-      question: props.question,
-      answer: null,
-      result: 0
-    }
-  }
-
-  componentWillReceiveProps (props) {
-    if ('loading' in props) {
-      this.setState({ loading: props.loading })
-    }
-    if ('initialQuestion' in props && !this.state.question) {
-      this.setState({ question: props.initialQuestion })
-      this.tick()
-    }
-  }
-
-  nextQuestion () {
-    const start = Date.now()
-    this.setState({
       loading: true,
+      disabled: false,
       question: null,
       answer: null,
-      disabled: false,
-      result: 0
-    })
-    this.props.getNextQuestion().then(q => {
-      this.setState({
-        question: q,
-        loading: false
-      })
-      this.tick()
-    })
+      result: 0,
+    }
+
+    this.onCurrentQuestion = question => {
+      if (!question.expired) {
+        this.setState({
+          loading: false,
+          disabled: question.expired,
+          question,
+          result: 0,
+          answer: null,
+        })
+        this.tick(question.id) // Render local countdown
+      }
+    }
+
+    this.onQuestionDone = ({ id, expired, ok, answer }) => {
+      if (!this.state.question || id !== this.state.question.id) {
+        // I get a message for another question, UI issue? Let's reload
+        document.reload(true)
+      } else {
+        // State change for current question
+        this.setState({
+          disabled: true,
+          answer,
+          result: ok ? +1 : -1,
+        })
+      }
+    }
+
+    // TODO WEBSOCKET: react to messages to update app state
   }
 
-  tick () {
+  tick (id) {
     setTimeout(() => {
+      if (!this.state.question || this.state.question.id !== id) {
+        // Ticking another question, I should stop there, there have been sync issues obviously
+        return
+      }
+
       if (this.state.disabled) {
-        // ticking is already over (other cause maybe, like user clicked on a button)
+        // No ticking on disabled question
         return
       }
 
       const t = this.state.question.t - 1
       this.setState({
         question: Object.assign({}, this.state.question, { t }),
-        disabled: t <= 0
+        disabled: t <= 0,
       })
 
-      if (t <= 0) {
-        this.sendAnswer(null)
-      } else {
-        this.tick()
+      if (t > 0) {
+        this.tick(id)
       }
     }, 1000)
   }
 
   sendAnswer (index) {
     this.setState({ disabled: true })
-    this.props.sendAnswer(this.state.question.id, index)
-    .then(({ ok, answer }) => {
-      this.setState({ answer, result: ok ? +1 : -1 })
-      setTimeout(() => this.nextQuestion(), 5000)
-    })
+    // TODO WEBSOCKET send message
   }
 
   renderSpinner () {
@@ -121,10 +121,10 @@ export default class App extends React.Component {
     return (
       <div className="app">
         <h1>Quizoo</h1>
+        { this.renderQuestion() }
+        { this.renderResult() }
         { this.renderTimer() }
         { this.renderSpinner() }
-        { this.renderResult() }
-        { this.renderQuestion() }
       </div>
     )
   }
@@ -132,13 +132,5 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-  getNextQuestion: T.func.isRequired,
-  sendAnswer: T.func.isRequired,
-  loading: T.bool,
-  question: T.object,
-}
-
-App.defaultProps = {
-  loading: false,
-  question: null,
+  socket: T.object.isRequired
 }
