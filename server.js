@@ -9,6 +9,7 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
+module.exports = app
 
 // Disable X-Powered-By header
 app.set('x-powered-by', false)
@@ -62,9 +63,11 @@ app.post('/answer-question', questions.answer)
 
 const server = http.createServer(app)
 
-server.listen(config.server.port, () => {
-  console.log(chalk.green(`Server ready http://localhost:${server.address().port}`)) // eslint-disable-line
-})
+if (!module.parent) {
+  server.listen(config.server.port, () => {
+    console.log(chalk.green(`Server ready http://localhost:${server.address().port}`)) // eslint-disable-line
+  })
+}
 
 server.on('error', e => {
   console.error(chalk.bold.red(`Failed to listen (error: ${e.message})`)) // eslint-disable-line

@@ -51,6 +51,7 @@
     "react-dom": "^15.3.2",
     "rewire": "^2.5.2",
     "sinon": "^1.17.6",
+    "supertest": "^2.0.0",
     "uglifyify": "^3.0.3",
     "watchify": "^3.7.0"
   }
