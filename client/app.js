@@ -16,7 +16,6 @@ export default class App extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    console.log(props)
     if ('loading' in props) {
       this.setState({ loading: props.loading })
     }
