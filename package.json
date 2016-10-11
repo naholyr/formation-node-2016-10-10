@@ -8,7 +8,7 @@
     "formation-node-2016-10-10": "build-quizz-database.js"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --check-leaks -R xunit",
     "preclean-client": "echo before cleaning",
     "clean-client": "rm -f public/main.build.js",
     "prebuild-client": "npm run clean-client",
@@ -18,7 +18,7 @@
     "start": "cross-env NODE_ENV=production node server",
     "watch-server": "cross-env NODE_ENV=development nodemon -i public -e js,toml server",
     "dev": "npm-run-all -p watch-client watch-server watch-test",
-    "watch-test": "mocha --watch -R min --growl"
+    "watch-test": "mocha --check-leaks --watch -R min --growl"
   },
   "author": "",
   "license": "ISC",
