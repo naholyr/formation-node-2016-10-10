@@ -1,6 +1,7 @@
 # Formation Node 10-12 octobre 2016
 
 * [Copycast](http://192.168.230.219:42000/)
+  * Repo git : `https://github.com/naholyr/formation-node-2016-10-10`
 * [nvm](https://github.com/creationix/nvm)
 * Commandes utiles npm :
   * `init` → créer le package.json
