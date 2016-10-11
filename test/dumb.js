@@ -12,6 +12,10 @@ describe('Things', () => {
     flag = false
   })
 
+  it('should run in test environment', () => {
+    expect(process.env.NODE_ENV).to.equal('test')
+  })
+
   it('should add 1 and 1', () => {
     expect(1 + 1).to.equal(2)
   })
