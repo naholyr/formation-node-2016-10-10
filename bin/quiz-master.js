@@ -21,7 +21,6 @@ function generateNextQuestion () {
     id: uuid.v4()
   })
   db.hmset('question', question).then(() => {
-    publish(....)
     io.emit('current-question', _.omit(question, 'a'))
     setTimeout(tick, 1000)
   })
