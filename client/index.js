@@ -1,10 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
 import App from './app'
+import io from 'socket.io-client'
+
+const socket = io()
 
 const root = document.getElementById('app')
 
-// TODO WEBSOCKET: connect to websocket and pass it to App
-
-render(<App socket={ ??? } />, root)
-
+render(<App socket={ socket } />, root)

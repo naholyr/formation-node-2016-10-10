@@ -1,1 +1,4 @@
 [server]
+
+[database]
+dbName = "test-db"

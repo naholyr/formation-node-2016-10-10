@@ -5,11 +5,12 @@ const express = require('express')
 const chalk = require('chalk')
 const config = require('config')
 const bodyParser = require('body-parser')
+const websocket = require('./lib/websocket')
 
 // Initialize services
 const app = express()
 const server = http.createServer(app)
-// TODO WEBSOCKET initialize socket.io
+websocket(server)
 
 
 // Export app
@@ -60,6 +61,16 @@ app.get('/param/:variable([0-9]+)', (req, res) => {
 app.get('/query', (req, res) => {
   res.send({ variable: req.query.variable })
 })
+
+/*
+Alternative : HAPI
+
+app.get('/items', (req, res) => getFromDB().then(collection => res.render(collection)))
+app.get('/items/:id', getItem)
+app.post('/items', createItem)
+app.put('/items/:id', updateItem)
+app.delete('/items/:id', deleteItem)
+*/
 
 // Replaced by WS API
 // app.get('/next-question', questions.next)

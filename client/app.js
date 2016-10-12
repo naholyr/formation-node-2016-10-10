@@ -11,11 +11,11 @@ export default class App extends React.Component {
       disabled: false,
       question: null,
       answer: null,
-      result: 0,
+      result: 0
     }
 
     this.onCurrentQuestion = question => {
-      if (!question.expired) {
+      if (!question.expired || !this.state.question) {
         this.setState({
           loading: false,
           disabled: question.expired,
@@ -40,13 +40,27 @@ export default class App extends React.Component {
         })
       }
     }
+  }
 
-    // TODO WEBSOCKET: react to messages to update app state
+  componentWillMount () {
+    this.props.socket.on('current-question', this.onCurrentQuestion)
+    this.props.socket.on('question-done', this.onQuestionDone)
+
+    /*
+    this.props.socket.on('current-question', (question) => {
+      this.onCurrentQuestion(question)
+    })
+    */
+  }
+
+  componentWillUnmount () {
+    this.props.socket.off('current-question', this.onCurrentQuestion)
+    this.props.socket.off('question-done', this.onQuestionDone)
   }
 
   sendAnswer (index) {
     this.setState({ disabled: true })
-    // TODO WEBSOCKET send message
+    this.props.socket.emit('answer-question', this.state.question.id, index);
   }
 
   tick (id) {
