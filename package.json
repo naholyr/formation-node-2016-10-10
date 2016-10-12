@@ -16,7 +16,7 @@
     "watch-client": "cross-env NODE_ENV=development watchify -v -d -t babelify client/index.js -o public/main.build.js",
     "prestart": "npm run build-client",
     "start": "cross-env NODE_ENV=production node server",
-    "watch-server": "cross-env NODE_ENV=development nodemon -i public -e js,toml server",
+    "watch-server": "cross-env DEBUG=socket.io:client,socket.io:socket,quizoo:* NODE_ENV=development nodemon -i public -e js,toml server",
     "dev": "npm-run-all -p watch-client watch-server",
     "watch-test": "mocha --check-leaks --watch -R min --growl"
   },
@@ -27,6 +27,7 @@
     "chalk": "^1.1.3",
     "cheerio": "^0.22.0",
     "config": "^1.21.0",
+    "debug": "^2.2.0",
     "express": "^4.14.0",
     "fs-promise": "^0.5.0",
     "lodash": "^4.16.4",
