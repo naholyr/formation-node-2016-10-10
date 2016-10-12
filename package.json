@@ -30,6 +30,7 @@
     "debug": "^2.2.0",
     "express": "^4.14.0",
     "fs-promise": "^0.5.0",
+    "ioredis": "^2.4.0",
     "lodash": "^4.16.4",
     "request": "^2.75.0",
     "request-promise-native": "^1.0.3",
@@ -58,5 +59,8 @@
     "supertest": "^2.0.0",
     "uglifyify": "^3.0.3",
     "watchify": "^3.7.0"
+  },
+  "optionalDependencies": {
+    "hiredis": "^0.5.0"
   }
 }

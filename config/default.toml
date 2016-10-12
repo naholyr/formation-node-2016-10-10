@@ -1,2 +1,7 @@
 [server]
 port = 80
+
+[redis]
+dropBufferSupport = true
+host = '192.168.230.219'
+port = 6379
