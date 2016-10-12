@@ -16,11 +16,15 @@ const io = socketioEmitter(config.redis)
 function generateNextQuestion () {
   const index = _.random(0, questions.length - 1)
   const question = Object.assign({}, questions[index], {
-    expired: '0',
+    expired: false,
     t: 10,
     id: uuid.v4()
   })
-  db.hmset('question', question).then(() => {
+  const serializedQuestion = Object.assign({}, question, {
+    expired: '0',
+    c: JSON.stringify(question.c)
+  })
+  db.hmset('question', serializedQuestion).then(() => {
     io.emit('current-question', _.omit(question, 'a'))
     setTimeout(tick, 1000)
   })
@@ -60,6 +64,9 @@ function getQuestion () {
   return db.hgetall('question') // Promise<Object>
     .then(question => {
       question.expired = Boolean(Number(question.expired))
+      question.c = JSON.parse(question.c)
+      question.a = Number(question.a)
+      question.t = Number(question.t)
       return question
     })
 }

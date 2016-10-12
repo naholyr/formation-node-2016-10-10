@@ -27,10 +27,10 @@ export default class App extends React.Component {
       }
     }
 
-    this.onQuestionDone = ({ id, expired, ok, answer }) => {
+    this.onQuestionDone = ({ id, ok, answer }) => {
       if (!this.state.question || id !== this.state.question.id) {
         // I get a message for another question, UI issue? Let's reload
-        document.reload(true)
+        document.location.reload(true)
       } else {
         // State change for current question
         this.setState({
