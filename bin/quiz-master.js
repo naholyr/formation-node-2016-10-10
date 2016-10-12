@@ -5,7 +5,10 @@ const uuid = require('uuid')
 const debug = require('debug')('quizoo:websocket')
 const _ = require('lodash')
 const db = require('../lib/db')
+const socketioEmitter = require('socket.io-emitter')
 const config = require('config')
+
+const io = socketioEmitter(config.redis)
 
 
 // Generate next question periodically
