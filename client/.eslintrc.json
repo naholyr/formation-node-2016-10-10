@@ -1,11 +1,18 @@
 {
-    "env": {
-        "es6": true,
-        "node": false,
-        "browser": true
+  "env": {
+    "es6": true,
+    "node": false,
+    "browser": true
+  },
+  "extends": "../.eslintrc.json",
+  "plugins": [
+    "react"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
     },
-    "extends": "../eslintrc.json",
-    "plugins": [
-        "react"
-    ]
+    "sourceType": "module"
+  }
 }

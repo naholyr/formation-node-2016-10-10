@@ -44,6 +44,11 @@ export default class App extends React.Component {
     // TODO WEBSOCKET: react to messages to update app state
   }
 
+  sendAnswer (index) {
+    this.setState({ disabled: true })
+    // TODO WEBSOCKET send message
+  }
+
   tick (id) {
     setTimeout(() => {
       if (!this.state.question || this.state.question.id !== id) {
@@ -66,11 +71,6 @@ export default class App extends React.Component {
         this.tick(id)
       }
     }, 1000)
-  }
-
-  sendAnswer (index) {
-    this.setState({ disabled: true })
-    // TODO WEBSOCKET send message
   }
 
   renderSpinner () {
